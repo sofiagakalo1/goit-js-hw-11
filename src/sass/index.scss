@@ -23,7 +23,7 @@
   width: 100%;
   background-color: red;
   margin: 0;
-  padding: 0;
+  padding: 0 0 15px 0;
 }
 .header {
   width: 100%;
@@ -46,7 +46,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 30%;
+  width: 40%;
 }
 .form-input {
   width: 100%;
@@ -73,4 +73,19 @@
   content: '';
   clear: both;
   display: table;
+}
+.load-more-btn {
+  background-color: #324ab2;
+  color: white;
+  font-size: 20px;
+  border-radius: 10 10 10 10;
+  padding: 10px 20px;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border: none;
+  outline: none;
+  text-transform: uppercase;
+  cursor: pointer;
 }
