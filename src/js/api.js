@@ -34,7 +34,12 @@ export default class APIservice {
     return this.searchQuery;
   }
 
-  totalPagesNumber(total) {
-    return (this.totalPages = Math.round(total / this.perPage));
+  set query(newQuery){
+    return this.searchQuery = newQuery;
+  }
+  //У відповіді бекенд повертає властивість totalHits - загальна кількість зображень,
+  // які відповідають критерію пошуку (totalHits=total)
+  NumberOfTotalPages(total){
+    return (this.totalPages = total/this.perPage);
   }
 }
