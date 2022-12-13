@@ -15,9 +15,10 @@ async function onFormSubmit(event) {
   event.preventDefault();
   //before find new results we must clear previous
   clearSearchResults();
-  APIservive.query = event.target.searchQuery.value.trim();
+  ApiService.query = event.target.searchQuery.value.trim();
 
-  if (APIservive.query === '') {
+  if (ApiService.query === '') {
+    clearSearchResults();
     return Notify.info('Write something(*^_^*)');
   }
   //----------------------------FETCHING OUR SEARCH OF PHOTOS-------------------------------

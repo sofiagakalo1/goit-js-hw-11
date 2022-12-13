@@ -18,7 +18,6 @@ export default class APIservice {
     const query = await axios.get(
       `${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&${searchParametrs}&per_page=${this.perPage}&page=${this.page}`
     );
-    console.log(query.data);
     return await query.data;
   }
 
