@@ -29,9 +29,9 @@ export default class APIservice {
     this.page = 1;
   }
 
-  // get query() {
-  //   return this.searchQuery;
-  // }
+  get query() {
+    return this.searchQuery;
+  }
 
   set query(newQuery){
     return this.searchQuery = newQuery;

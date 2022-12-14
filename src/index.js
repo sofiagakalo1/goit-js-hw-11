@@ -43,7 +43,7 @@ async function onFormSubmit(event) {
       refs.loadBtn.classList.remove('is-hidden');
     }
     numberOfImages += photosData.hits.length;
-    console.log(numberOfImages)
+    console.log(numberOfImages);
 
     //--------TELLING ABOUT SEARCH RESULTS
     Notify.info(`Hooray! We found ${photosData.totalHits} images.`);
