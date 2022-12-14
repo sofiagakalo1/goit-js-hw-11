@@ -41,6 +41,10 @@ async function onFormSubmit(event) {
     } else {
       refs.loadBtn.classList.remove('is-hidden');
     }
+    console.log(ApiService.NumberOfTotalPages(photosData.totalHits));
+    console.log(photosData.hits.length);
+    console.log(photosData.totalHits);
+
     //--------TELLING ABOUT SEARCH RESULTS
     Notify.info(`Hooray! We found ${photosData.totalHits} images.`);
   } catch (error) {
@@ -55,10 +59,7 @@ function render(photosData) {
 async function onLoadMoreBtn() {
   ApiService.incrementPage();
   let photosData = await ApiService.fetchPosts();
-  console.log(ApiService.NumberOfTotalPages(photosData.totalHits));
-  console.log(photosData.hits.length);
-  console.log(photosData.totalHits);
-  if(photosData.hits.length < photosData.totalHits){
+  if(photosData.hits.length <= photosData.totalHits){
     refs.loadBtn.classList.remove('is-hidden');
   }
   try {
