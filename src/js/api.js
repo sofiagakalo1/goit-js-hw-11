@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { refs } from './refs';
 
 const API_KEY = '32028238-0a619196cedefed84fa876d4b';
 const BASE_URL = 'https://pixabay.com/api/';
@@ -32,13 +31,13 @@ export default class APIservice {
   get query() {
     return this.searchQuery;
   }
-
-  set query(newQuery){
-    return this.searchQuery = newQuery;
+//задаємо значення для search query (введений текст у інпуті)
+  set query(newQuery) {
+    return (this.searchQuery = newQuery);
   }
   //У відповіді бекенд повертає властивість totalHits - загальна кількість зображень,
   // які відповідають критерію пошуку (totalHits=total)
-  NumberOfTotalPages(total){
-    return (this.totalPages = Math.ceil(total/this.perPage));
+  NumberOfTotalPages(total) {
+    return (this.totalPages = Math.ceil(total / this.perPage));
   }
 }

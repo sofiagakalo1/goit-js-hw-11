@@ -17,6 +17,9 @@ async function onFormSubmit(event) {
   //before find new results we must clear previous
   clearSearchResults();
   ApiService.query = event.target.searchQuery.value.trim();
+  
+  console.log(ApiService.query);
+  console.log(event.target.searchQuery.value);
 
   if (ApiService.query === '') {
     clearSearchResults();
@@ -55,7 +58,7 @@ function render(photosData) {
   const listOfPhotos = photosData.hits.map(markup);
   refs.galleryList.insertAdjacentHTML('beforeend', listOfPhotos.join(''));
 
-  const lightboxGallery = new SimpleLightbox('.gallery a', {
+  new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
   });
 }
