@@ -17,7 +17,7 @@ async function onFormSubmit(event) {
   //before find new results we must clear previous
   clearSearchResults();
   ApiService.query = event.target.searchQuery.value.trim();
-  
+
   console.log(ApiService.query);
   console.log(event.target.searchQuery.value);
 
