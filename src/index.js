@@ -7,6 +7,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const ApiService = new APIservice();
+let numberOfImages = 0;
 
 refs.form.addEventListener('submit', onFormSubmit);
 refs.loadBtn.addEventListener('click', onLoadMoreBtn);
@@ -41,9 +42,8 @@ async function onFormSubmit(event) {
     } else {
       refs.loadBtn.classList.remove('is-hidden');
     }
-    console.log(ApiService.NumberOfTotalPages(photosData.totalHits));
-    console.log(photosData.hits.length);
-    console.log(photosData.totalHits);
+    numberOfImages += photosData.hits.length;
+    console.log(numberOfImages)
 
     //--------TELLING ABOUT SEARCH RESULTS
     Notify.info(`Hooray! We found ${photosData.totalHits} images.`);
@@ -59,11 +59,24 @@ function render(photosData) {
 async function onLoadMoreBtn() {
   ApiService.incrementPage();
   let photosData = await ApiService.fetchPosts();
+  numberOfImages += photosData.hits.length;
+
+  console.log(numberOfImages)
+  // console.log(ApiService.NumberOfTotalPages(photosData.totalHits));
+  // console.log(photosData.hits.length);
+  console.log(photosData.totalHits);
+  // console.log(ApiService.page);
+  // console.log(ApiService.totalPages);
+
   if(photosData.hits.length <= photosData.totalHits){
     refs.loadBtn.classList.remove('is-hidden');
   }
   try {
-    render(photosData)
+    render(photosData);
+      if(ApiService.page>= ApiService.totalPages){
+    refs.loadBtn.classList.add('is-hidden');
+    Notify.info(`We're sorry, but you've reached the end of search results.`);
+  }
   } catch (error){
     Notify.failure('Something went wrong [*_*]');
   }
@@ -74,4 +87,5 @@ function clearSearchResults() {
   refs.galleryList.innerHTML = '';
   //start new searches from 1(first) page
   ApiService.resetPage();
+  numberOfImages = 0;
 }
