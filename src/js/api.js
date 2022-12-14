@@ -29,9 +29,9 @@ export default class APIservice {
     this.page = 1;
   }
 
-  get query() {
-    return this.searchQuery;
-  }
+  // get query() {
+  //   return this.searchQuery;
+  // }
 
   set query(newQuery){
     return this.searchQuery = newQuery;
@@ -39,6 +39,6 @@ export default class APIservice {
   //У відповіді бекенд повертає властивість totalHits - загальна кількість зображень,
   // які відповідають критерію пошуку (totalHits=total)
   NumberOfTotalPages(total){
-    return (this.totalPages = total/this.perPage);
+    return (this.totalPages = Math.ceil(total/this.perPage));
   }
 }

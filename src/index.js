@@ -38,11 +38,11 @@ async function onFormSubmit(event) {
     //---------CHECKING FOR ACTIVE OR NOT LOAD-MORE-BUTTON
     if (ApiService.totalPages === 1) {
       refs.loadBtn.classList.add('is-hidden');
-    } else if (ApiService.totalPages > 1) {
-      refs.loadBtn.classList.add('is-hidden');
+    } else {
+      refs.loadBtn.classList.remove('is-hidden');
     }
     //--------TELLING ABOUT SEARCH RESULTS
-    Notify.info(`Hooray! We found ${ApiService.NumberOfTotalPages} images.`);
+    Notify.info(`Hooray! We found ${photosData.totalHits} images.`);
   } catch (error) {
     Notify.failure('Something went wrong [*_*]');
   }
@@ -52,7 +52,21 @@ function render(photosData) {
   refs.galleryList.insertAdjacentHTML('beforeend', listOfPhotos.join(''));
 }
 
-async function onLoadMoreBtn() {}
+async function onLoadMoreBtn() {
+  ApiService.incrementPage();
+  let photosData = await ApiService.fetchPosts();
+  console.log(ApiService.NumberOfTotalPages(photosData.totalHits));
+  console.log(photosData.hits.length);
+  console.log(photosData.totalHits);
+  if(photosData.hits.length < photosData.totalHits){
+    refs.loadBtn.classList.remove('is-hidden');
+  }
+  try {
+    render(photosData)
+  } catch (error){
+    Notify.failure('Something went wrong [*_*]');
+  }
+}
 
 function clearSearchResults() {
   //clearing markup of gallery results
