@@ -54,6 +54,10 @@ async function onFormSubmit(event) {
 function render(photosData) {
   const listOfPhotos = photosData.hits.map(markup);
   refs.galleryList.insertAdjacentHTML('beforeend', listOfPhotos.join(''));
+
+  const lightboxGallery = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+  });
 }
 
 async function onLoadMoreBtn() {
@@ -61,23 +65,23 @@ async function onLoadMoreBtn() {
   let photosData = await ApiService.fetchPosts();
   numberOfImages += photosData.hits.length;
 
-  console.log(numberOfImages)
+  console.log(numberOfImages);
   // console.log(ApiService.NumberOfTotalPages(photosData.totalHits));
   // console.log(photosData.hits.length);
   console.log(photosData.totalHits);
   // console.log(ApiService.page);
   // console.log(ApiService.totalPages);
 
-  if(photosData.hits.length <= photosData.totalHits){
+  if (photosData.hits.length <= photosData.totalHits) {
     refs.loadBtn.classList.remove('is-hidden');
   }
   try {
     render(photosData);
-      if(ApiService.page>= ApiService.totalPages){
-    refs.loadBtn.classList.add('is-hidden');
-    Notify.info(`We're sorry, but you've reached the end of search results.`);
-  }
-  } catch (error){
+    if (ApiService.page >= ApiService.totalPages) {
+      refs.loadBtn.classList.add('is-hidden');
+      Notify.info(`We're sorry, but you've reached the end of search results.`);
+    }
+  } catch (error) {
     Notify.failure('Something went wrong [*_*]');
   }
 }
